@@ -4,7 +4,8 @@
             <el-input
                     type="textarea"
                     :rows="10"
-                    placeholder="请输入内容"
+                    readonly="true"
+                    placeholder=""
                     v-model="textarea">
             </el-input>
             <el-input
@@ -42,7 +43,7 @@
         },
         methods: {
             initWebSocket(){ //初始化weosocket
-                const wsuri1 = "ws://127.0.0.1:8000/websocket/" + this.matching + "/" + this.userid;
+                const wsuri1 = "ws://192.168.1.110:8000/websocket/" + this.matching + "/" + this.userid;
                 this.websock = new WebSocket(wsuri1);
                 this.websock.onmessage = this.websocketonmessage;
                 // this.websock.onopen = this.websocketonopen;
@@ -52,7 +53,9 @@
             websocketonopen(){ //连接建立之后执行send方法发送数据
                 // let actions = {"test":"12345"};
                 let actions = this.input10;
-                this.websocketsend(JSON.stringify(this.userid+":"+actions));
+                const aData  = new Date()
+                const datevalue = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-" + aData.getDate() + " " + aData.getHours() + ":" + aData.getMinutes() + ":" + aData.getSeconds();
+                this.websocketsend(JSON.stringify( datevalue + "\n" + this.userid+":"+actions));
             },
             websocketonerror(){//连接建立失败重连
                 this.initWebSocket();
