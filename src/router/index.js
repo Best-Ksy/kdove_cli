@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 // import Home from "../views/Home.vue";
 import Index from "../views/index/Index";
 import Matching from "../views/matching/Matching"
+import Register from "../views/reg/Register";
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     path: "/matching",
     name: "Matching",
     component: Matching
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register
   }
   // {
   //   path: "/about",

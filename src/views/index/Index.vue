@@ -43,7 +43,7 @@
         },
         methods: {
             initWebSocket(){ //初始化weosocket
-                const wsuri1 = "ws://192.168.1.110:8000/websocket/" + this.matching + "/" + this.userid;
+                const wsuri1 = "ws://192.168.1.110:8088/websocket/" + this.matching + "/" + this.userid;
                 this.websock = new WebSocket(wsuri1);
                 this.websock.onmessage = this.websocketonmessage;
                 // this.websock.onopen = this.websocketonopen;
