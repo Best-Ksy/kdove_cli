@@ -1,29 +1,24 @@
 <template>
     <div>
         <el-form ref="form" :model="form" label-width="80px" class="reg_form">
-            <h2>欢迎注册</h2>
-            <el-form-item label="昵称">
-                <el-input v-model="form.nickname"></el-input>
+            <h2>手机登录</h2>
+            <el-form-item label="手机号码">
+                <el-input v-model="form.nickname" @blur="valPhone($event)"></el-input>
             </el-form-item>
-            <el-form-item label="用户名">
-                <el-input v-model="form.username"></el-input>
+            <el-form-item label="验证码" v-if="showInput">
+                <el-input class="inp_class" v-model="form.password"></el-input>
+                <el-button  class="inp_button" type="primary" size="small " round @click="getSms()">获取验证码</el-button>
             </el-form-item>
-            <el-form-item label="密码">
-                <el-input v-model="form.password"></el-input>
-            </el-form-item>
-            <el-form-item label="验证密码">
-                <el-input v-model="form.password"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button @click="cleanInput">重新输入</el-button>
-            </el-form-item>
-        </el-form>
 
+<!--            <el-form-item>-->
+<!--                <el-button type="primary" @click="onSubmit">立即创建</el-button>-->
+<!--            </el-form-item>-->
+        </el-form>
     </div>
 </template>
 
 <script>
+    import {getSmsCode} from '../../api/user_api'
     export default {
         name: "Register",
         data() {
@@ -32,7 +27,9 @@
                     nickname: '',
                     username: '',
                     password: ''
-                }
+                },
+                showInput:false,
+                errocount: 0
             }
         },
         methods: {
@@ -41,6 +38,20 @@
             },
             cleanInput(){
                 this.form = {nickname: '',username: "",password: ""}
+            },
+            valPhone(){
+                var reg=/^1[3456789]\d{9}$/;
+                if(reg.test(this.form.nickname)){
+                    this.showInput = true;
+                }else {
+                    this.$message('手机号码错误');
+                }
+            },
+            getSms(){
+                console.log(this.form.nickname);
+                getSmsCode(this.form.nickname).then(response => {
+                    console.log(response.data.data)
+                })
             }
         }
     }
@@ -48,9 +59,17 @@
 
 <style scoped>
     .reg_form{
-        width: 30%;
+        width: 20%;
         margin: 10% auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
         padding: 30px 30px 10px 0px
+    }
+    .inp_class{
+        width: 50%;
+    }
+    .inp_button{
+        /*width: 40%;*/
+        margin-left: 8%;
+        /*margin-right: 5%;*/
     }
 </style>
