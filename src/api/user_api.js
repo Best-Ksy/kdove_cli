@@ -11,7 +11,6 @@ export function smsVerification(data) {
     return request({
         url: '/reg/sms/verification',
         method: "POST",
-        // headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data
     })
 }

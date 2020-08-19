@@ -32,14 +32,14 @@
         },
         methods: {
             submit() {
-
                 if (this.form.smscode.length === 5){
                     const Data = {"phoneNumber":this.form.username,"smsCode":this.form.smscode};
                     smsVerification(Data).then(response => {
                         if (response.data.code === 201){
                             const respData = response.data.data;
-                            console.log(respData.username);
-                            console.log(response.data);
+                            this.$store.commit('SET_USERNAME',respData.username);
+                            this.$store.commit("SET_XCODE",respData.xcode);
+                            console.log(this.$store.getters.getUserName)
                         }else {
                             this.$message('验证码错误');
                             this.form.smscode = '';
