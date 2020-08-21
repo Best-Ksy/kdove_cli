@@ -18,6 +18,8 @@
 
 <script>
     import {getSmsCode,smsVerification} from '../../api/user_api';
+    import {setXcode} from "../../utils/auth";
+
     export default {
         name: "Register",
         data() {
@@ -37,9 +39,8 @@
                     smsVerification(Data).then(response => {
                         if (response.data.code === 201){
                             const respData = response.data.data;
-                            this.$store.commit('SET_USERNAME',respData.username);
-                            this.$store.commit("SET_XCODE",respData.xcode);
-                            console.log(this.$store.getters.getUserName)
+                            setXcode(respData.xcode);
+                            location.reload();
                         }else {
                             this.$message('验证码错误');
                             this.form.smscode = '';

@@ -9,7 +9,7 @@ const getDefaultState = () => {
   return {
     id: '',
     username: '',
-    ucode: 'ss',
+    ucode: '',
     nickname: '',
     regdate: '',
     headurl:'',
@@ -53,7 +53,8 @@ export default new Vuex.Store({
     getNickName: state => state.nickname,
     getRegDate: state => state.regdate,
     getHeadUrl: state => state.headurl,
-    getEmail: state => state.email
+    getEmail: state => state.email,
+    getXcode: state => state.xcode
   },
   modules: {}
 });

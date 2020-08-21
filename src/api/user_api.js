@@ -14,3 +14,10 @@ export function smsVerification(data) {
         data
     })
 }
+export function xcodeVerification(xcode) {
+    return request({
+        url: '/reg/sms/verification/xcode',
+        method: 'GET',
+        params: {Xcode:xcode}
+    })
+}
