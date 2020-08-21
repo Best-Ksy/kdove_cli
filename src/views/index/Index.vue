@@ -25,16 +25,16 @@
         data() {
             return {
                 websock: null,
-                userid: '',
+                usercode: '',
                 matching: '',
                 textarea: '',
                 input10: ''
             }
         },
         created() {
-            this.userid = this.$route.query.userid;
+            this.usercode = this.$store.getters.getUcode;
             this.matching = this.$route.query.matching;
-            console.log(this.userid)
+            console.log(this.usercode)
             console.log(this.matching)
             this.initWebSocket();
         },
@@ -43,7 +43,7 @@
         },
         methods: {
             initWebSocket(){ //初始化weosocket
-                const wsuri1 = "ws://localhost:8088/websocket/" + this.matching + "/" + this.userid;
+                const wsuri1 = "ws://localhost:8088/websocket/" + this.matching + "/" + this.usercode;
                 this.websock = new WebSocket(wsuri1);
                 this.websock.onmessage = this.websocketonmessage;
                 // this.websock.onopen = this.websocketonopen;
@@ -55,7 +55,7 @@
                 let actions = this.input10;
                 const aData  = new Date()
                 const datevalue = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-" + aData.getDate() + " " + aData.getHours() + ":" + aData.getMinutes() + ":" + aData.getSeconds();
-                this.websocketsend(JSON.stringify( datevalue + "\n" + this.userid+":"+actions));
+                this.websocketsend(JSON.stringify( datevalue + "\n" + this.usercode+":"+actions));
             },
             websocketonerror(){//连接建立失败重连
                 this.initWebSocket();
